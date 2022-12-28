@@ -44,4 +44,36 @@ router.get("/:postId", async (req, res) => {
   }
 });
 
+router.patch("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { content, user, password } = req.body;
+
+  const comment = await Comment.findById(id);
+
+  if (!comment) {
+    return res.json({ message: "댓글 조회에 실패하였습니다." });
+  }
+
+  const isPasswordCorrect = comment.password === password;
+
+  if (isPasswordCorrect) {
+    if (content) {
+      comment.content = content;
+    }
+
+    if (user) {
+      comment.user = user;
+    }
+
+    try {
+      const updatedComment = await comment.save();
+      res.json({ data: updatedComment });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  } else {
+    res.json({ message: "비밀번호가 틀렸습니다." });
+  }
+});
+
 module.exports = router;
