@@ -6,27 +6,27 @@ POST http://localhost:3000/posts
 Content-Type: application/json
 
 {
-    "user": "amazing cat",
-    "title": "nodejs is great",
-    "content": "it's true",
+    "user": "amazing you",
+    "title": "react is great",
+    "content": "yes, it is",
     "password": "password_1234"
 }
 
 ###
 
-GET http://localhost:3000/posts/63ac253ef29fee46c635b4ff
+GET http://localhost:3000/posts/63ac63fdaf5eb6f38e7da874
 
 ###
-PATCH http://localhost:3000/posts/63ac253ef29fee46c635b4f9
+PATCH http://localhost:3000/posts/63ac63fdaf5eb6f38e7da874
 Content-Type: application/json
 
 {
-    "user": "amaing cat",
+    "user": "amazing sparta",
     "password": "password_1234"
 }
 
 ###
-DELETE http://localhost:3000/posts/63ac2cb583fb3b0c791e632d
+DELETE http://localhost:3000/posts/63ac63fdaf5eb6f38e7da874
 Content-Type: application/json
 
 {

@@ -2,6 +2,23 @@ const express = require("express");
 const router = express.Router();
 const Post = require("./schema/post");
 
+async function getPost(req, res, next) {
+  const { id } = req.params;
+  let post;
+
+  try {
+    post = await Post.findById(id);
+    if (!post) {
+      return res.json({ message: "게시글 조회에 실패하였습니다." });
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+
+  res.post = post;
+  next();
+}
+
 router.get("/", async (_, res) => {
   try {
     const posts = await Post.find().select(["-password"]); // [{}, {}, {}]
@@ -27,21 +44,14 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
-  const { id } = req.params;
-
+router.get("/:id", getPost, async (_, res) => {
   // .find({id})
   // .findOne({id})
   //   .findById
-  try {
-    const post = await Post.findById(id).select(["-password"]);
-    res.json({ data: post });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
+  res.json(res.post);
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", getPost, async (req, res) => {
   const { id } = req.params;
 
   if (!req.body || !id) {
@@ -49,12 +59,7 @@ router.patch("/:id", async (req, res) => {
   }
 
   const { user, title, content, password } = req.body;
-
-  const post = await Post.findById(id); // null
-
-  if (!post) {
-    return res.json({ message: "게시글 조회에 실패하였습니다." });
-  }
+  const { post } = res;
 
   const isPasswordCorrect = post.password === password;
 
@@ -82,15 +87,9 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
-  const { id } = req.params;
+router.delete("/:id", getPost, async (req, res) => {
   const { password } = req.body;
-
-  const post = await Post.findById(id); // null
-
-  if (!post) {
-    return res.json({ message: "게시글 조회에 실패하였습니다." });
-  }
+  const { post } = res;
 
   const isPasswordCorrect = post.password === password;
 
