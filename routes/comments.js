@@ -33,4 +33,15 @@ router.post("/:postId", async (req, res) => {
   }
 });
 
+router.get("/:postId", async (req, res) => {
+  const { postId } = req.params;
+
+  try {
+    const comments = await Comment.find({ postId });
+    res.json({ data: comments });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;
