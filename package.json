@@ -1,0 +1,26 @@
+{
+  "name": "sparta_posts.nosync",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hurricanenara/sparta_blog.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hurricanenara/sparta_blog/issues"
+  },
+  "homepage": "https://github.com/hurricanenara/sparta_blog#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.8.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
