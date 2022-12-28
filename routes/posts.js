@@ -82,4 +82,28 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+
+  const post = await Post.findById(id); // null
+
+  if (!post) {
+    return res.json({ message: "게시글 조회에 실패하였습니다." });
+  }
+
+  const isPasswordCorrect = post.password === password;
+
+  if (isPasswordCorrect) {
+    try {
+      await post.remove();
+      res.json({ message: "게시글을 삭제했습니다." });
+    } catch (err) {
+      res.status(500).json({ message: err.message });
+    }
+  } else {
+    res.status(401).json({ message: "비밀번호가 틀렸습니다." });
+  }
+});
+
 module.exports = router;
