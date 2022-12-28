@@ -11,4 +11,20 @@ router.get("/", async (_, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  const { user, title, content, password } = req.body;
+
+  try {
+    const post = await Post.create({
+      user,
+      title,
+      content,
+      password,
+    });
+    res.json({ data: post });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;
