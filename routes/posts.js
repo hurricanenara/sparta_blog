@@ -27,4 +27,18 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  // .find({id})
+  // .findOne({id})
+  //   .findById
+  try {
+    const post = await Post.findById(id).select(["-password"]);
+    res.json({ data: post });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;
