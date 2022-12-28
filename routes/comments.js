@@ -11,4 +11,26 @@ router.get("/", async (_, res) => {
   }
 });
 
+router.post("/:postId", async (req, res) => {
+  const { postId } = req.params;
+
+  if (!req.body) {
+    return res.json({ message: "데이터 형식이 올바르지 않습니다." });
+  }
+
+  const { user, content, password } = req.body;
+
+  try {
+    const comment = await Comment.create({
+      user,
+      content,
+      password,
+      postId,
+    });
+    res.json({ data: comment });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;
