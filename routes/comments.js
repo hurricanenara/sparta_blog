@@ -76,4 +76,28 @@ router.patch("/:id", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+
+  const comment = await Comment.findById(id); // null
+
+  if (!comment) {
+    return res.json({ message: "댓글 조회에 실패하였습니다." });
+  }
+
+  const isPasswordCorrect = comment.password === password;
+
+  if (isPasswordCorrect) {
+    try {
+      await comment.remove();
+      res.json({ message: "댓글을 삭제하였습니다." });
+    } catch (err) {
+      res.json({ message: err.message });
+    }
+  } else {
+    res.json({ message: "비밀번호가 틀렸습니다." });
+  }
+});
+
 module.exports = router;
