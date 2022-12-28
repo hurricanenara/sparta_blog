@@ -1,0 +1,69 @@
+GET http://localhost:3000/posts
+
+###
+
+POST http://localhost:3000/posts
+Content-Type: application/json
+
+{
+    "user": "amazing cat",
+    "title": "nodejs is great",
+    "content": "it's true",
+    "password": "password_1234"
+}
+
+###
+
+GET http://localhost:3000/posts/63ac253ef29fee46c635b4ff
+
+###
+PATCH http://localhost:3000/posts/63ac253ef29fee46c635b4f9
+Content-Type: application/json
+
+{
+    "user": "amaing cat",
+    "password": "password_1234"
+}
+
+###
+DELETE http://localhost:3000/posts/63ac2cb583fb3b0c791e632d
+Content-Type: application/json
+
+{
+    "password": "password_1234"
+}
+
+###
+
+GET http://localhost:3000/comments
+
+###
+
+POST http://localhost:3000/comments/63ac2f3e4661551d8e97acca
+Content-Type: application/json
+
+{
+    "user": "seungyoon",
+    "content": "nodejs is the best",
+    "password": "password_111"
+}
+
+###
+GET http://localhost:3000/comments/63ac324081c4e3204978d3f2
+
+###
+PATCH http://localhost:3000/comments/63ac31269ed7286af833bc05
+Content-Type: application/json
+
+{
+    "content": "spring is the best",
+    "password": "password_111"
+}
+
+###
+DELETE http://localhost:3000/comments/63ac31269ed7286af833bc05
+Content-Type: application/json
+
+{
+    "password": "password_111"
+}
